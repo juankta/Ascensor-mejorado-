@@ -1,0 +1,480 @@
+// Copyright (C) 1991-2013 Altera Corporation
+// Your use of Altera Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Altera Program License 
+// Subscription Agreement, Altera MegaCore Function License 
+// Agreement, or other applicable license agreement, including, 
+// without limitation, that your use is for the sole purpose of 
+// programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the 
+// applicable agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench with test vectors .The test vectors  
+// are exported from a vector file in the Quartus Waveform Editor and apply to  
+// the top level entity of the current Quartus project .The user can use this   
+// testbench to simulate his design using a third-party simulation tool .       
+// *****************************************************************************
+// Generated on "03/31/2025 14:55:47"
+                                                                        
+// Verilog Self-Checking Test Bench (with test vectors) for design :    controlador_vertical1
+// 
+// Simulation tool : 3rd Party
+// 
+
+`timescale 1 ps/ 1 ps
+module controlador_vertical1_vlg_sample_tst(
+	clk,
+	dir,
+	piso_destino,
+	reset,
+	sampler_tx
+);
+input  clk;
+input  dir;
+input [2:0] piso_destino;
+input  reset;
+output sampler_tx;
+
+reg sample;
+time current_time;
+always @(clk or dir or piso_destino or reset)
+                                                                                
+begin                                                 
+ if ($realtime > 0)                                   
+ begin                                                
+	if ($realtime == 0 || $realtime != current_time)  
+	begin									          
+		if (sample === 1'bx)                          
+			sample = 0;                               
+		else                                          
+			sample = ~sample;                         
+	end										          
+	current_time = $realtime;					      
+ end                                                  
+end                                                   
+
+assign sampler_tx = sample;
+endmodule
+
+module controlador_vertical1_vlg_check_tst (
+	dir_out,
+	llegada,
+	piso_7seg,
+	piso_actual,
+	sampler_rx
+);
+input  dir_out;
+input  llegada;
+input [6:0] piso_7seg;
+input [2:0] piso_actual;
+input sampler_rx;
+
+reg  dir_out_expected;
+reg  llegada_expected;
+reg [6:0] piso_7seg_expected;
+reg [2:0] piso_actual_expected;
+
+reg  dir_out_prev;
+reg  llegada_prev;
+reg [6:0] piso_7seg_prev;
+reg [2:0] piso_actual_prev;
+
+reg  dir_out_expected_prev;
+reg  llegada_expected_prev;
+reg [6:0] piso_7seg_expected_prev;
+reg [2:0] piso_actual_expected_prev;
+
+reg  last_dir_out_exp;
+reg  last_llegada_exp;
+reg [6:0] last_piso_7seg_exp;
+reg [2:0] last_piso_actual_exp;
+
+reg trigger;
+
+integer i;
+integer nummismatches;
+
+reg [1:4] on_first_change ;
+
+
+initial
+begin
+trigger = 0;
+i = 0;
+nummismatches = 0;
+on_first_change = 4'b1;
+end
+
+// update real /o prevs
+
+always @(trigger)
+begin
+	dir_out_prev = dir_out;
+	llegada_prev = llegada;
+	piso_7seg_prev = piso_7seg;
+	piso_actual_prev = piso_actual;
+end
+
+// update expected /o prevs
+
+always @(trigger)
+begin
+	dir_out_expected_prev = dir_out_expected;
+	llegada_expected_prev = llegada_expected;
+	piso_7seg_expected_prev = piso_7seg_expected;
+	piso_actual_expected_prev = piso_actual_expected;
+end
+
+
+
+// expected dir_out
+initial
+begin
+	dir_out_expected = 1'bX;
+end 
+
+// expected llegada
+initial
+begin
+	llegada_expected = 1'bX;
+end 
+// expected piso_7seg[ 6 ]
+initial
+begin
+	piso_7seg_expected[6] = 1'bX;
+end 
+// expected piso_7seg[ 5 ]
+initial
+begin
+	piso_7seg_expected[5] = 1'bX;
+end 
+// expected piso_7seg[ 4 ]
+initial
+begin
+	piso_7seg_expected[4] = 1'bX;
+end 
+// expected piso_7seg[ 3 ]
+initial
+begin
+	piso_7seg_expected[3] = 1'bX;
+end 
+// expected piso_7seg[ 2 ]
+initial
+begin
+	piso_7seg_expected[2] = 1'bX;
+end 
+// expected piso_7seg[ 1 ]
+initial
+begin
+	piso_7seg_expected[1] = 1'bX;
+end 
+// expected piso_7seg[ 0 ]
+initial
+begin
+	piso_7seg_expected[0] = 1'bX;
+end 
+// expected piso_actual[ 2 ]
+initial
+begin
+	piso_actual_expected[2] = 1'bX;
+end 
+// expected piso_actual[ 1 ]
+initial
+begin
+	piso_actual_expected[1] = 1'bX;
+end 
+// expected piso_actual[ 0 ]
+initial
+begin
+	piso_actual_expected[0] = 1'bX;
+end 
+// generate trigger
+always @(dir_out_expected or dir_out or llegada_expected or llegada or piso_7seg_expected or piso_7seg or piso_actual_expected or piso_actual)
+begin
+	trigger <= ~trigger;
+end
+
+always @(posedge sampler_rx or negedge sampler_rx)
+begin
+`ifdef debug_tbench
+	$display("Scanning pattern %d @time = %t",i,$realtime );
+	i = i + 1;
+	$display("| expected dir_out = %b | expected llegada = %b | expected piso_7seg = %b | expected piso_actual = %b | ",dir_out_expected_prev,llegada_expected_prev,piso_7seg_expected_prev,piso_actual_expected_prev);
+	$display("| real dir_out = %b | real llegada = %b | real piso_7seg = %b | real piso_actual = %b | ",dir_out_prev,llegada_prev,piso_7seg_prev,piso_actual_prev);
+`endif
+	if (
+		( dir_out_expected_prev !== 1'bx ) && ( dir_out_prev !== dir_out_expected_prev )
+		&& ((dir_out_expected_prev !== last_dir_out_exp) ||
+			on_first_change[1])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port dir_out :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", dir_out_expected_prev);
+		$display ("     Real value = %b", dir_out_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[1] = 1'b0;
+		last_dir_out_exp = dir_out_expected_prev;
+	end
+	if (
+		( llegada_expected_prev !== 1'bx ) && ( llegada_prev !== llegada_expected_prev )
+		&& ((llegada_expected_prev !== last_llegada_exp) ||
+			on_first_change[2])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port llegada :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", llegada_expected_prev);
+		$display ("     Real value = %b", llegada_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[2] = 1'b0;
+		last_llegada_exp = llegada_expected_prev;
+	end
+	if (
+		( piso_7seg_expected_prev[0] !== 1'bx ) && ( piso_7seg_prev[0] !== piso_7seg_expected_prev[0] )
+		&& ((piso_7seg_expected_prev[0] !== last_piso_7seg_exp[0]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[0] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[0] = piso_7seg_expected_prev[0];
+	end
+	if (
+		( piso_7seg_expected_prev[1] !== 1'bx ) && ( piso_7seg_prev[1] !== piso_7seg_expected_prev[1] )
+		&& ((piso_7seg_expected_prev[1] !== last_piso_7seg_exp[1]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[1] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[1] = piso_7seg_expected_prev[1];
+	end
+	if (
+		( piso_7seg_expected_prev[2] !== 1'bx ) && ( piso_7seg_prev[2] !== piso_7seg_expected_prev[2] )
+		&& ((piso_7seg_expected_prev[2] !== last_piso_7seg_exp[2]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[2] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[2] = piso_7seg_expected_prev[2];
+	end
+	if (
+		( piso_7seg_expected_prev[3] !== 1'bx ) && ( piso_7seg_prev[3] !== piso_7seg_expected_prev[3] )
+		&& ((piso_7seg_expected_prev[3] !== last_piso_7seg_exp[3]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[3] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[3] = piso_7seg_expected_prev[3];
+	end
+	if (
+		( piso_7seg_expected_prev[4] !== 1'bx ) && ( piso_7seg_prev[4] !== piso_7seg_expected_prev[4] )
+		&& ((piso_7seg_expected_prev[4] !== last_piso_7seg_exp[4]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[4] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[4] = piso_7seg_expected_prev[4];
+	end
+	if (
+		( piso_7seg_expected_prev[5] !== 1'bx ) && ( piso_7seg_prev[5] !== piso_7seg_expected_prev[5] )
+		&& ((piso_7seg_expected_prev[5] !== last_piso_7seg_exp[5]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[5] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[5] = piso_7seg_expected_prev[5];
+	end
+	if (
+		( piso_7seg_expected_prev[6] !== 1'bx ) && ( piso_7seg_prev[6] !== piso_7seg_expected_prev[6] )
+		&& ((piso_7seg_expected_prev[6] !== last_piso_7seg_exp[6]) ||
+			on_first_change[3])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_7seg[6] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_7seg_expected_prev);
+		$display ("     Real value = %b", piso_7seg_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[3] = 1'b0;
+		last_piso_7seg_exp[6] = piso_7seg_expected_prev[6];
+	end
+	if (
+		( piso_actual_expected_prev[0] !== 1'bx ) && ( piso_actual_prev[0] !== piso_actual_expected_prev[0] )
+		&& ((piso_actual_expected_prev[0] !== last_piso_actual_exp[0]) ||
+			on_first_change[4])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_actual[0] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_actual_expected_prev);
+		$display ("     Real value = %b", piso_actual_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[4] = 1'b0;
+		last_piso_actual_exp[0] = piso_actual_expected_prev[0];
+	end
+	if (
+		( piso_actual_expected_prev[1] !== 1'bx ) && ( piso_actual_prev[1] !== piso_actual_expected_prev[1] )
+		&& ((piso_actual_expected_prev[1] !== last_piso_actual_exp[1]) ||
+			on_first_change[4])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_actual[1] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_actual_expected_prev);
+		$display ("     Real value = %b", piso_actual_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[4] = 1'b0;
+		last_piso_actual_exp[1] = piso_actual_expected_prev[1];
+	end
+	if (
+		( piso_actual_expected_prev[2] !== 1'bx ) && ( piso_actual_prev[2] !== piso_actual_expected_prev[2] )
+		&& ((piso_actual_expected_prev[2] !== last_piso_actual_exp[2]) ||
+			on_first_change[4])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port piso_actual[2] :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", piso_actual_expected_prev);
+		$display ("     Real value = %b", piso_actual_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[4] = 1'b0;
+		last_piso_actual_exp[2] = piso_actual_expected_prev[2];
+	end
+
+	trigger <= ~trigger;
+end
+initial 
+
+begin 
+$timeformat(-12,3," ps",6);
+#1000000;
+if (nummismatches > 0)
+	$display ("%d mismatched vectors : Simulation failed !",nummismatches);
+else
+	$display ("Simulation passed !");
+$finish;
+end 
+endmodule
+
+module controlador_vertical1_vlg_vec_tst();
+// constants                                           
+// general purpose registers
+reg clk;
+reg dir;
+reg [2:0] piso_destino;
+reg reset;
+// wires                                               
+wire dir_out;
+wire llegada;
+wire [6:0] piso_7seg;
+wire [2:0] piso_actual;
+
+wire sampler;                             
+
+// assign statements (if any)                          
+controlador_vertical1 i1 (
+// port map - connection between master ports and signals/registers   
+	.clk(clk),
+	.dir(dir),
+	.dir_out(dir_out),
+	.llegada(llegada),
+	.piso_7seg(piso_7seg),
+	.piso_actual(piso_actual),
+	.piso_destino(piso_destino),
+	.reset(reset)
+);
+
+// clk
+always
+begin
+	clk = 1'b0;
+	clk = #10000 1'b1;
+	#10000;
+end 
+
+// reset
+initial
+begin
+	reset = 1'b0;
+	reset = #20000 1'b1;
+	reset = #20000 1'b0;
+end 
+// piso_destino[ 2 ]
+initial
+begin
+	piso_destino[2] = 1'b0;
+	piso_destino[2] = #120000 1'b1;
+	piso_destino[2] = #40000 1'b0;
+	piso_destino[2] = #120000 1'b1;
+	piso_destino[2] = #40000 1'b0;
+end 
+// piso_destino[ 1 ]
+initial
+begin
+	piso_destino[1] = 1'b0;
+	piso_destino[1] = #40000 1'b1;
+	piso_destino[1] = #40000 1'b0;
+end 
+// piso_destino[ 0 ]
+initial
+begin
+	piso_destino[0] = 1'b0;
+	piso_destino[0] = #200000 1'b1;
+	piso_destino[0] = #40000 1'b0;
+	piso_destino[0] = #40000 1'b1;
+	piso_destino[0] = #40000 1'b0;
+end 
+
+// dir
+initial
+begin
+	dir = 1'b0;
+	dir = #40000 1'b1;
+	dir = #40000 1'b0;
+	dir = #40000 1'b1;
+	dir = #40000 1'b0;
+	dir = #40000 1'b1;
+	dir = #40000 1'b0;
+	dir = #40000 1'b1;
+	dir = #40000 1'b0;
+end 
+
+controlador_vertical1_vlg_sample_tst tb_sample (
+	.clk(clk),
+	.dir(dir),
+	.piso_destino(piso_destino),
+	.reset(reset),
+	.sampler_tx(sampler)
+);
+
+controlador_vertical1_vlg_check_tst tb_out(
+	.dir_out(dir_out),
+	.llegada(llegada),
+	.piso_7seg(piso_7seg),
+	.piso_actual(piso_actual),
+	.sampler_rx(sampler)
+);
+endmodule
+
